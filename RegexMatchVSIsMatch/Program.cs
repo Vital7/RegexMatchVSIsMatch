@@ -6,10 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace RegexMatchVSIsMatch {
 	internal static class Program {
-		private static readonly Regex TestRegex = new Regex(@"\d", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+		private static readonly Regex TestRegex = new Regex(@"\d", RegexOptions.Compiled | RegexOptions.CultureInvariant); // Testing regex, if string contains at least 1 digit
 		static void Main() {
 			DoTest(1, 1, true); // Omitting first result because of JIT compilation
-			for (int numberPower = 0; numberPower < 5; numberPower++) { // Checking from 1 
+
+			for (int numberPower = 0; numberPower < 5; numberPower++) { // Checking from 1 to 10000 by powers of 10
 				int number = (int) Math.Pow(10, numberPower);
 				for (int lengthPower = 0; lengthPower < 5; lengthPower++) {
 					int length = (int) Math.Pow(10, lengthPower);
@@ -26,7 +27,7 @@ namespace RegexMatchVSIsMatch {
 
 			HashSet<string> testStrings = new HashSet<string>(number);
 			for (int i = 0; i < number; i++) {
-				testStrings.Add(GenerateString(length));
+				testStrings.Add(GenerateString(length)); // Filling with random strings
 			}
 
 			if (!silent) {
@@ -35,25 +36,25 @@ namespace RegexMatchVSIsMatch {
 
 			bool firstResult = true;
 			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
+			stopwatch.Start(); // Starting timer for the first test
 			foreach (string testString in testStrings) {
 				firstResult &= TestRegex.Match(testString).Success;
 			}
 
-			stopwatch.Stop();
+			stopwatch.Stop(); // Stopping timer for the first test
 			long firstElapsedTicks = stopwatch.ElapsedTicks;
 			bool secondResult = true;
 			stopwatch.Reset();
-			stopwatch.Start();
+			stopwatch.Start(); // Starting timer for the second test
 			foreach (string testString in testStrings) {
 				secondResult &= TestRegex.IsMatch(testString);
             }
 
-			stopwatch.Stop();
+			stopwatch.Stop(); // Stopping timer for the second test
 			long secondElapsedTicks = stopwatch.ElapsedTicks;
 			if (!silent) {
 				if (firstResult != secondResult) {
-					Console.WriteLine("Stop what");
+					Console.WriteLine("Stop what"); // That should never happen, but checking anyway
 					return;
 				}
 
