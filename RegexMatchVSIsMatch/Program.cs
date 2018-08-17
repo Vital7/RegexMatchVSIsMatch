@@ -48,7 +48,7 @@ namespace RegexMatchVSIsMatch {
 			stopwatch.Start(); // Starting timer for the second test
 			foreach (string testString in testStrings) {
 				secondResult &= TestRegex.IsMatch(testString);
-            }
+			}
 
 			stopwatch.Stop(); // Stopping timer for the second test
 			long secondElapsedTicks = stopwatch.ElapsedTicks;
