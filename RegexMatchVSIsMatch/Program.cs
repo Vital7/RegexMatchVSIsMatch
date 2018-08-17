@@ -63,7 +63,7 @@ namespace RegexMatchVSIsMatch {
 		}
 
 		private static readonly Random Random = new Random();
-		private static string GenerateString(int length) {
+		private static string GenerateString(int length) { // Stole that code from https://stackoverflow.com/a/1344242/9341747
 			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 			return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray());
 		}
